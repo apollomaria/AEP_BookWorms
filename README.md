@@ -27,7 +27,9 @@
 * RF10 - Permitir que o usuário responda formulários com questões relacionadas aos livros lidos;
 * RF11 - Permitir que o usuário publique comentários em fóruns específicos para cada livro;
 
-#
+### Cronograma de Execução
+<img width="650" height="695" alt="image" src="https://github.com/user-attachments/assets/1e50f6b0-e3d9-4b2e-8af4-6d46ec30d29a" />
+
 
 ### Justificativa Técnica
 
