@@ -61,6 +61,18 @@
 
 #
 
+### Diagrama de Classes (UML)
+
+<img width="1048" height="772" alt="WhatsApp Image 2026-09-04 at 09 52 17" src="https://github.com/user-attachments/assets/4fe5777a-daa8-48d6-b39e-4d97dffbcb55" />
+
+
+* Herança: As classes Lider_Clube e Membro herdam de Usuario atributos e métodos, pois são um tipo de Usuario, porém possuem suas próprias ações dentro do sistema.
+* Composição 1:N: A composição 1:N acontece entre as classes de Forum e Comentario, o que significa que 0 ou muitos Comentarios compõem um Forum, se o Forum deixar de existir, os Comentarios que o compõem também deixaram.
+* Composição 1:1: A composição 1:1 ocorre entre as classes Livro e Forum, onde o Forum compõe a classe Livro. O que significa que se o Livro existe então existe um único Forum para esse livro, caso ele deixe de existir o Forum também é apagado.
+* Polimorfismo: O poliformismo está presente na classe de Ranking, onde RankingHora, RankingEXP, RankingPagina, RankingLivro herdam de Ranking atributos e métodos, que são executados de forma diversificada, para cada tipo de Ranking.
+
+#
+
 ### Referência Bibliográfica
 
 COMPANHIA DAS LETRAS. Não-leitores são maioria no Brasil pela primeira vez, 2024. Disponível em: https://www.companhiadasletras.com.br/blogDaLetrinhas/Post/6903/ 
