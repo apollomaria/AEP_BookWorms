@@ -37,18 +37,7 @@
 * As Sprints ocorrerão semanalmente, com a data inicial exata a ser definida.
 
 #
-### Diagrama de Banco de Dados (DER)
 
-<img width="931" height="816" alt="banco de dados" src="https://github.com/user-attachments/assets/60d56c00-52c8-4d3b-a5df-e810e51c6184" />
-
-* Tabela Usuario: dados necessários do usuário;
-* Tabela Registro de Leitura: registra os dados que serão informados pelo usuário a cada "sessão" de leitura realizada;
-* Tabela Clube de Leitura: registro dos clubes existentes com tabela associativa para os membros inscritos em si;
-* Tabela Livro: cadastro de livros que serão utilizados como foreign key para o livro escolhido na sessão de livro escolhido do grupo e do livro lido pelo usuário no registro;
-* Tabela Inscricao_Leitura (Associativa): resolve o relacionamento de muitos para muitos entre Usuários e Clubes de Leituras, pois armazena id_usuario e id_clube_leitura;
-* Tabela Inscricao_Forum (Associativa): resolve o relacionamento de muitos para muitos entre Usuários e Fóruns, pois armazena id_usuario e id_forum;
-* Tabela Quiz: baseada na RF10, são os formulários que os usuários poderão responder e serão criadas pelos líderes dos clubes, por isso id_criador como foreign key de Usuario;
-* Tabela Ranking: tabela única “pai” com colunas discriminatórias (qtd_hora, qtd_exp, qtd_pag, qtd_livro) para diferenciar as classes filhas distintas da herança.
 
 
 ### Justificativa Técnica
@@ -72,7 +61,20 @@
 * Polimorfismo: O poliformismo está presente na classe de Ranking, onde RankingHora, RankingEXP, RankingPagina, RankingLivro herdam de Ranking atributos e métodos, que são executados de forma diversificada, para cada tipo de Ranking.
 
 #
+### Diagrama de Banco de Dados (DER)
 
+<img width="931" height="816" alt="banco de dados" src="https://github.com/user-attachments/assets/60d56c00-52c8-4d3b-a5df-e810e51c6184" />
+
+* Tabela Usuario: dados necessários do usuário;
+* Tabela Registro de Leitura: registra os dados que serão informados pelo usuário a cada "sessão" de leitura realizada;
+* Tabela Clube de Leitura: registro dos clubes existentes com tabela associativa para os membros inscritos em si;
+* Tabela Livro: cadastro de livros que serão utilizados como foreign key para o livro escolhido na sessão de livro escolhido do grupo e do livro lido pelo usuário no registro;
+* Tabela Inscricao_Leitura (Associativa): resolve o relacionamento de muitos para muitos entre Usuários e Clubes de Leituras, pois armazena id_usuario e id_clube_leitura;
+* Tabela Inscricao_Forum (Associativa): resolve o relacionamento de muitos para muitos entre Usuários e Fóruns, pois armazena id_usuario e id_forum;
+* Tabela Quiz: baseada na RF10, são os formulários que os usuários poderão responder e serão criadas pelos líderes dos clubes, por isso id_criador como foreign key de Usuario;
+* Tabela Ranking: tabela única “pai” com colunas discriminatórias (qtd_hora, qtd_exp, qtd_pag, qtd_livro) para diferenciar as classes filhas distintas da herança.
+
+#
 ### Referência Bibliográfica
 
 COMPANHIA DAS LETRAS. Não-leitores são maioria no Brasil pela primeira vez, 2024. Disponível em: https://www.companhiadasletras.com.br/blogDaLetrinhas/Post/6903/ 
