@@ -1,5 +1,5 @@
 # BOOKWORMS
-#### [Contextualização](#contextualização) - [Escopo do Projeto](#escopo-do-projeto) - [Justificativa Técnica](#justificativa-técnica) - [Referência Bibliográfica](#referência-bibliográfica)
+##### [Contextualização](#contextualização) - [Escopo](#escopo-do-projeto) - [Cronograma](#cronograma-de-execução) - [Justificativa Técnica](#justificativa-técnica) - [Diagrama de Classes (UML)](#diagrama-de-classes-uml) - [Diagrama de Banco de Dados (DER)](#diagrama-de-banco-de-dados-der) - [Referência Bibliográfica](#referência-bibliográfica)
 #
 
 ### Contextualização
