@@ -28,8 +28,10 @@
 * RF11 - Permitir que o usuário publique comentários em fóruns específicos para cada livro;
 
 ### Cronograma de Execução
-<img width="650" height="695" alt="image" src="https://github.com/user-attachments/assets/1e50f6b0-e3d9-4b2e-8af4-6d46ec30d29a" />
+<img width="637" height="687" alt="image" src="https://github.com/user-attachments/assets/70f13f90-68fd-459a-bf53-055f857ccf1b" />
+
 *A equipe trabalhará unificada nos objetivos, mas de forma simultânea: enquanto um integrante faz o Diagrama de Sequência do RF01, outro faz o do RF02, por exemplo;
+
 *As Sprints ocorrerão semanalmente, com a data inicial exata a ser definida.
 
 ### Justificativa Técnica
