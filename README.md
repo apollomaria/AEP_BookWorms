@@ -1,5 +1,5 @@
 # BOOKWORMS
-##### [Contextualização](#contextualização) - [Escopo](#escopo-do-projeto) - [Cronograma](#cronograma-de-execução) - [Justificativa Técnica](#justificativa-técnica) - [Diagrama de Classes (UML)](#diagrama-de-classes-uml) - [Diagrama de Banco de Dados (DER)](#diagrama-de-banco-de-dados-der) - [Referência Bibliográfica](#referência-bibliográfica)
+##### [Contextualização](#contextualização) - [Escopo](#escopo-do-projeto) - [Cronograma](#cronograma-de-execução) - [Atribuições](#atribuições) - [Justificativa](#justificativa-técnica) - [Diagrama UML](#diagrama-de-classes-uml) - [DER](#diagrama-de-banco-de-dados-der) - [Referências](#referências-bibliográficas)
 #
 
 ### Contextualização
@@ -10,31 +10,41 @@
 
         A considerar os dados acima e a ODS 4 da ONU, que tem como objetivo assegurar a educação inclusiva, equitativa e de qualidade, além de promover oportunidades de aprendizagem ao longo da vida para todas e todos, o BookWorms surge como uma proposta para estimular o hábito de leitura através da gamificação, competição e socialização desse passa tempo, motivando as pessoas a saírem de redes sociais, como Reels do Instagram, Tiktok e Youtube Shorts e interagirem em uma comunidade virtual de leitura.
 	
-        Após uma pesquisa de mercado, feita em salas de aula e através de um Formulário Google (com 109 respostas), o público-alvo validou e mostrou-se interessado no desenvolvimento do projeto.
+        Após uma pesquisa de mercado, feita em salas de aula e através de um Formulário Google (com 109 respostas), o público-alvo (jovens adultos e adolescentes) validou e mostrou-se interessado no desenvolvimento do projeto.
 
 #
 
 ### Escopo do Projeto
-* RF01 - Permitir que o usuário crie registros de leitura;
-* RF02 - Permitir que o usuário crie e cumpra metas pessoais;
-* RF03 - Permitir que o usuário crie clubes de leitura;
-* RF04 - Permitir que o usuário defina qual será a leitura do clube (decisão do líder do clube, decisão da maioria ou aleatório);
-* RF05 - Permitir que o usuário edite informações do clube;
-* RF06 - Permitir que o usuário entre em vários clubes;
-* RF07 - Permitir que o usuário exclua o clube;
-* RF08 - Permitir que o usuário crie metas no clube;
-* RF09 - Permitir que o usuário consulte e participe de rankings gamificados;
-* RF10 - Permitir que o usuário responda formulários com questões relacionadas aos livros lidos;
-* RF11 - Permitir que o usuário publique comentários em fóruns específicos para cada livro;
+* **RF-001:** Permitir que o usuário crie registros de leitura;
+* **RF-002:** Permitir que o usuário crie e cumpra metas pessoais;
+* **RF-003:** Permitir que o usuário crie clubes de leitura;
+* **RF-004:** Permitir que o usuário defina qual será a leitura do clube (decisão do líder do clube, decisão da maioria ou aleatório);
+* **RF-005:** Permitir que o usuário edite informações do clube;
+* **RF-006:** Permitir que o usuário entre em vários clubes;
+* **RF-007:** Permitir que o usuário exclua o clube;
+* **RF-008:** Permitir que o usuário crie metas no clube;
+* **RF-009:** Permitir que o usuário consulte e participe de rankings gamificados;
+* **RF-010:** Permitir que o usuário responda formulários com questões relacionadas aos livros lidos;
+* **RF-011:** Permitir que o usuário publique comentários em fóruns específicos para cada livro;
 
 #
 
 ### Cronograma de Execução
 <img width="637" height="687" alt="image" src="https://github.com/user-attachments/assets/70f13f90-68fd-459a-bf53-055f857ccf1b" />
 
-* A equipe trabalhará unificada nos objetivos, mas de forma simultânea: enquanto um integrante faz o Diagrama de Sequência do RF01, outro faz o do RF02, por exemplo;
 
 * As Sprints ocorrerão semanalmente, com a data inicial exata a ser definida.
+
+### Atribuições
+
+| **BACK END** | **FRONT END** | **BANCO DE DADOS** | **TESTES** | **ARTEFATOS** |
+|:------------:|:-------------:|:------------------:|:----------:|:-------------:|
+|    Nicole    |     Milton    |       Mateus       |   Apollo   |     Apollo    |
+
+
+* Gerente de Projeto: Apollo
+* Scrum Master: Apollo
+
 
 #
 
@@ -55,27 +65,30 @@
 <img width="1048" height="772" alt="WhatsApp Image 2026-09-04 at 09 52 17" src="https://github.com/user-attachments/assets/4fe5777a-daa8-48d6-b39e-4d97dffbcb55" />
 
 
-* Herança: As classes Lider_Clube e Membro herdam de Usuario atributos e métodos, pois são um tipo de Usuario, porém possuem suas próprias ações dentro do sistema.
-* Composição 1:N: A composição 1:N acontece entre as classes de Forum e Comentario, o que significa que 0 ou muitos Comentarios compõem um Forum, se o Forum deixar de existir, os Comentarios que o compõem também deixaram.
-* Composição 1:1: A composição 1:1 ocorre entre as classes Livro e Forum, onde o Forum compõe a classe Livro. O que significa que se o Livro existe então existe um único Forum para esse livro, caso ele deixe de existir o Forum também é apagado.
-* Polimorfismo: O poliformismo está presente na classe de Ranking, onde RankingHora, RankingEXP, RankingPagina, RankingLivro herdam de Ranking atributos e métodos, que são executados de forma diversificada, para cada tipo de Ranking.
+
+* **HERANÇA**: As classes Lider_Clube e Membro herdam de Usuario atributos e métodos, pois são um tipo de Usuario, porém possuem suas próprias ações dentro do sistema.
+* **COMPOSIÇÃO** 1:N: A composição 1:N acontece entre as classes de Forum e Comentario, o que significa que 0 ou muitos Comentarios compõem um Forum, se o Forum deixar de existir, os Comentarios que o compõem também deixaram.
+* **COMPOSIÇÃO** 1:1: A composição 1:1 ocorre entre as classes Livro e Forum, onde o Forum compõe a classe Livro. O que significa que se o Livro existe então existe um único Forum para esse livro, caso ele deixe de existir o Forum também é apagado.
+* **POLIMORFISMO**: O poliformismo está presente na classe de Ranking, onde RankingHora, RankingEXP, RankingPagina, RankingLivro herdam de Ranking atributos e métodos, que são executados de forma diversificada, para cada tipo de Ranking.
 
 #
 ### Diagrama de Banco de Dados (DER)
 
 <img width="931" height="816" alt="banco de dados" src="https://github.com/user-attachments/assets/60d56c00-52c8-4d3b-a5df-e810e51c6184" />
 
-* Tabela Usuario: dados necessários do usuário;
-* Tabela Registro de Leitura: registra os dados que serão informados pelo usuário a cada "sessão" de leitura realizada;
-* Tabela Clube de Leitura: registro dos clubes existentes com tabela associativa para os membros inscritos em si;
-* Tabela Livro: cadastro de livros que serão utilizados como foreign key para o livro escolhido na sessão de livro escolhido do grupo e do livro lido pelo usuário no registro;
-* Tabela Inscricao_Leitura (Associativa): resolve o relacionamento de muitos para muitos entre Usuários e Clubes de Leituras, pois armazena id_usuario e id_clube_leitura;
-* Tabela Inscricao_Forum (Associativa): resolve o relacionamento de muitos para muitos entre Usuários e Fóruns, pois armazena id_usuario e id_forum;
-* Tabela Quiz: baseada na RF10, são os formulários que os usuários poderão responder e serão criadas pelos líderes dos clubes, por isso id_criador como foreign key de Usuario;
-* Tabela Ranking: tabela única “pai” com colunas discriminatórias (qtd_hora, qtd_exp, qtd_pag, qtd_livro) para diferenciar as classes filhas distintas da herança.
+
+
+* **Tabela Usuario**: dados necessários do usuário;
+* **Tabela Registro de Leitura**: registra os dados que serão informados pelo usuário a cada "sessão" de leitura realizada;
+* **Tabela Clube de Leitura**: registro dos clubes existentes com tabela associativa para os membros inscritos em si;
+* **Tabela Livro**: cadastro de livros que serão utilizados como foreign key para o livro escolhido na sessão de livro escolhido do grupo e do livro lido pelo usuário no registro;
+* **Tabela Inscricao_Leitura (Associativa)**: resolve o relacionamento de muitos para muitos entre Usuários e Clubes de Leituras, pois armazena id_usuario e id_clube_leitura;
+* **Tabela Inscricao_Forum (Associativa)**: resolve o relacionamento de muitos para muitos entre Usuários e Fóruns, pois armazena id_usuario e id_forum;
+* **Tabela Quiz**: baseada na RF10, são os formulários que os usuários poderão responder e serão criadas pelos líderes dos clubes, por isso id_criador como foreign key de Usuario;
+* **Tabela Ranking**: tabela única “pai” com colunas discriminatórias (qtd_hora, qtd_exp, qtd_pag, qtd_livro) para diferenciar as classes filhas distintas da herança.
 
 #
-### Referência Bibliográfica
+### Referências Bibliográficas
 
 COMPANHIA DAS LETRAS. Não-leitores são maioria no Brasil pela primeira vez, 2024. Disponível em: https://www.companhiadasletras.com.br/blogDaLetrinhas/Post/6903/ 
 
