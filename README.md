@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # BOOKWORMS
 ##### [Contextualização](#contextualização) - [Escopo](#escopo-do-projeto) - [Cronograma](#cronograma-de-execução) - [Atribuições](#atribuições) - [Justificativa](#justificativa-técnica) - [Diagrama UML](#diagrama-de-classes-uml) - [DER](#diagrama-de-banco-de-dados-der) - [Referências](#referências-bibliográficas)
 #
