@@ -298,8 +298,3 @@ npm run test:e2e
 - **EXP/nível:** os documentos não definem a regra de cálculo, então registrar leitura **não** altera o EXP.
 - O backend não exige tamanho mínimo de senha (a tela exige 8 caracteres).
 
-## 9. Segurança
-
-- **Nunca** suba para o Git o arquivo `.env`, nem backups do banco (`*.dump`). O `.gitignore` já os bloqueia.
-- Cada pessoa usa a **própria** senha local do PostgreSQL.
->>>>>>> 83b7fb5 (Adicionando o projeto BookWorms)
