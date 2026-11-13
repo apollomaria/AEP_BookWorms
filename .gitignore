@@ -1,0 +1,20 @@
+# Segredos e dados locais — NUNCA versionar
+.env
+.env.*
+!.env.example
+*.dump
+*.backup
+*.bak
+
+# Dependências e builds
+node_modules/
+dist/
+*.tsbuildinfo
+coverage/
+
+# Logs e sistema
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/

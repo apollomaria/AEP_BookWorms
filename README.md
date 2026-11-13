@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BOOKWORMS
 ##### [Contextualização](#contextualização) - [Escopo](#escopo-do-projeto) - [Cronograma](#cronograma-de-execução) - [Atribuições](#atribuições) - [Justificativa](#justificativa-técnica) - [Diagrama UML](#diagrama-de-classes-uml) - [DER](#diagrama-de-banco-de-dados-der) - [Referências](#referências-bibliográficas)
 #
@@ -99,3 +100,206 @@
 COMPANHIA DAS LETRAS. Não-leitores são maioria no Brasil pela primeira vez, 2024. Disponível em: https://www.companhiadasletras.com.br/blogDaLetrinhas/Post/6903/ 
 
 ROCHA, L. Cultura da leitura em declínio e o avanço do analfabetismo funcional no Brasil, 2025. Disponível em: https://www12.senado.leg.br/noticias/infomaterias/2025/10/cultura-da-leitura-em-declinio-e-o-avanco-do-analfabetismo-funcional-no-brasil 
+
+=======
+# 📚 BookWorms — MVP
+
+App social e gamificado de leitura. Esta versão (MVP) tem:
+
+- **Conta:** cadastro, login e consulta de conta.
+- **Registros de leitura:** criar, listar, editar e excluir.
+
+```
+backend/    API em NestJS + TypeScript, conversa com o PostgreSQL (biblioteca pg, SQL direto, sem ORM)
+frontend/   Site em React + Vite
+database/   bookworms_schema.sql — o único arquivo SQL do projeto (todas as tabelas)
+README.md   este arquivo
+```
+
+Como as peças se conectam:
+
+```
+Navegador (frontend, porta 5173)  →  API (backend, porta 3000)  →  PostgreSQL (porta 5432)
+```
+
+---
+
+## 1. O que instalar (Windows, macOS ou Linux)
+
+| Programa | Versão | Onde baixar |
+|---|---|---|
+| **Node.js** (já inclui o `npm`) | 22 ou superior (LTS). Só para rodar os testes automáticos é preciso 24.9+ | https://nodejs.org |
+| **PostgreSQL** | 14 ou superior | https://www.postgresql.org/download |
+| **Git** (para clonar o projeto) | qualquer | https://git-scm.com |
+| Editor (opcional) | VS Code | https://code.visualstudio.com |
+
+Instalando o PostgreSQL:
+- **Windows:** use o instalador oficial. Ele pede uma senha para o superusuário `postgres`: **anote-a** (é só sua). Mantenha a porta **5432**. Ele instala também o **SQL Shell (psql)**.
+- **macOS:** `brew install postgresql@16 && brew services start postgresql@16` (ou o app Postgres.app).
+- **Linux (Ubuntu/Debian):** `sudo apt update && sudo apt install -y postgresql postgresql-contrib`.
+
+Confira no terminal (no Windows: PowerShell ou Prompt de Comando):
+```bash
+node -v        # deve mostrar v22 ou maior
+npm -v
+psql --version # se "não reconhecido" no Windows, use o "SQL Shell (psql)" do menu Iniciar
+```
+
+> **Terminal:** os comandos abaixo funcionam em qualquer sistema, salvo onde indicado.
+
+---
+
+## 2. Banco de dados
+
+### 2.1 Entrar no PostgreSQL como administrador
+- **Linux:** `sudo -u postgres psql`
+- **macOS:** `psql postgres`
+- **Windows:** abra o **SQL Shell (psql)**, aperte Enter nas perguntas (servidor, banco, porta, usuário `postgres`) e digite a senha que você definiu na instalação. (Ou, no terminal: `psql -U postgres`.)
+
+### 2.2 Criar o usuário e o banco
+Dentro do `psql`, troque `escolha_sua_senha` por uma senha **sua** (ela só existirá na sua máquina):
+```sql
+CREATE USER bookworms_user WITH PASSWORD 'escolha_sua_senha';
+CREATE DATABASE bookworms OWNER bookworms_user;
+\q
+```
+O `OWNER bookworms_user` é importante: assim o usuário é dono das tabelas e não precisa de permissões extras.
+
+### 2.3 Criar as tabelas
+Na pasta do projeto (a que tem `README.md`):
+```bash
+psql -h localhost -U bookworms_user -d bookworms -f database/bookworms_schema.sql
+```
+A senha é digitada no prompt (nada aparece enquanto você digita; é normal).
+
+### 2.4 Conferir
+```bash
+psql -h localhost -U bookworms_user -d bookworms -c "\dt"
+```
+Devem aparecer 5 tabelas: `clube_membros`, `clubes`, `infracoes`, `registros_leitura`, `usuarios`.
+
+---
+
+## 3. Backend (API)
+
+```bash
+cd backend
+```
+Crie o arquivo `.env` a partir do modelo:
+
+| Sistema | Comando |
+|---|---|
+| Linux / macOS | `cp .env.example .env` |
+| Windows (Prompt de Comando) | `copy .env.example .env` |
+| Windows (PowerShell) | `Copy-Item .env.example .env` |
+
+Abra o `.env` no editor e preencha com os **seus** dados locais:
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=bookworms_user
+DB_PASSWORD=a_senha_que_voce_escolheu_no_passo_2.2
+DB_DATABASE=bookworms
+PORT=3000
+CORS_ORIGIN=http://localhost:5173
+```
+Depois:
+```bash
+npm install
+npm run start:dev
+```
+Deixe esse terminal aberto. Teste no navegador: http://localhost:3000/users/teste-conexao — deve aparecer algo como `{"banco":"bookworms","usuario":"bookworms_user"}`.
+
+---
+
+## 4. Frontend (site)
+
+Abra **outro terminal**:
+```bash
+cd frontend
+```
+Crie o `.env` (mesmos comandos de cópia da tabela acima) — o conteúdo padrão já serve:
+```
+VITE_API_URL=http://localhost:3000
+```
+```bash
+npm install
+npm run dev
+```
+Abra **http://localhost:5173** no navegador.
+
+---
+
+## 5. Como testar se está tudo conectado
+
+1. Acesse `http://localhost:5173/#/criar-conta`, preencha (com a data de nascimento) e clique em **Criar Conta**.
+2. Confira que o usuário foi gravado no banco:
+   ```bash
+   psql -h localhost -U bookworms_user -d bookworms -c "SELECT id, nome_usuario, email, data_nascimento FROM usuarios;"
+   ```
+3. Saia da conta e entre pelo botão **Login** (e-mail ou nome de usuário). Uma senha errada deve ser recusada.
+4. Em `http://localhost:5173/#/criar-registro`, crie um registro de leitura. Recarregue a página (F5): ele continua lá, porque vem do banco.
+5. Confira no banco:
+   ```bash
+   psql -h localhost -U bookworms_user -d bookworms -c "SELECT id, usuario_id, titulo_livro, paginas_lidas, data_leitura FROM registros_leitura;"
+   ```
+
+Testes automáticos do backend (não usam o seu banco; exigem Node 24.9+):
+```bash
+cd backend
+npm test
+npm run test:e2e
+```
+
+---
+
+## 6. Rotas da API (backend)
+
+| Método e rota | O que faz |
+|---|---|
+| `POST /users/cadastro` | cria conta (`nome, email, dataNascimento, senha, confirmarSenha`) |
+| `POST /auth/login` | login (`login` = e-mail ou nome de usuário, `senha`) |
+| `GET /users/:id` | consulta a conta |
+| `POST /reading-logs` | cria registro de leitura |
+| `GET /reading-logs/user/:usuarioId` | lista os registros do usuário |
+| `GET /reading-logs/:id?usuarioId=` | detalha um registro |
+| `PUT /reading-logs/:id` | edita (só o autor) |
+| `DELETE /reading-logs/:id?usuarioId=` | exclui (só o autor) |
+
+---
+
+## 7. Erros comuns
+
+| Sintoma | Causa provável | O que fazer |
+|---|---|---|
+| Site mostra "Não foi possível conectar ao servidor" (`ECONNREFUSED`, `Failed to fetch`) | backend desligado, ou `VITE_API_URL` errada | inicie o backend (passo 3); confira `frontend/.env` e reinicie o `npm run dev` |
+| Erro de **CORS** no console do navegador | site aberto em outro endereço (ex.: `127.0.0.1:5173`) | abra por `http://localhost:5173` ou ajuste `CORS_ORIGIN` no `backend/.env` |
+| `password authentication failed` no backend | senha do `backend/.env` diferente da do usuário do banco | corrija o `.env` e reinicie o backend |
+| `ECONNREFUSED 127.0.0.1:5432` | PostgreSQL parado ou porta diferente | inicie o serviço do PostgreSQL; confira `DB_PORT` |
+| `relation "..." does not exist` | tabelas não criadas | rode o passo 2.3 |
+| `relation "..." already exists` ao rodar o `.sql` | o banco já tem as tabelas (você já rodou o passo 2.3) | não precisa rodar de novo; para recomeçar, apague e recrie o banco vazio (`DROP DATABASE bookworms;` e o passo 2.2, só na sua máquina de teste) |
+| `permission denied for table ...` | banco criado com outro dono | recrie o banco com `OWNER bookworms_user` (passo 2.2) |
+| `psql` não reconhecido (Windows) | psql fora do PATH | use o **SQL Shell (psql)** ou adicione `C:\Program Files\PostgreSQL\<versão>\bin` ao PATH |
+| Mudei o `.env` e nada mudou | o `.env` só é lido ao iniciar | pare (Ctrl+C) e inicie de novo |
+| **404** | rota errada ou backend antigo rodando | reinicie o backend |
+| **400** | dado inválido | a tela mostra a mensagem |
+| **401** | senha/usuário incorretos | confira os dados |
+| **403** | conta desativada, ou registro de outra pessoa | esperado pelas regras |
+| **409** | e-mail ou nome de usuário já cadastrados | use outros |
+| **500** | erro no servidor/banco | veja o terminal do backend |
+
+---
+
+## 8. Estado do projeto e limitações
+
+- **Funcionando e ligado ao banco:** cadastro, login, consulta de conta, registros de leitura.
+- **Clubes:** as tabelas existem no banco, mas as telas de clubes **ainda não** usam o backend (mostram dados locais que somem ao recarregar). Posts, metas, livros e ranking também ainda não estão ligados.
+- **Sem token de login (JWT):** o site envia o `usuarioId` nas requisições; quem souber um id consegue agir como aquele usuário pela API. Serve para o MVP/estudo, **não** para produção.
+- **EXP/nível:** os documentos não definem a regra de cálculo, então registrar leitura **não** altera o EXP.
+- O backend não exige tamanho mínimo de senha (a tela exige 8 caracteres).
+
+## 9. Segurança
+
+- **Nunca** suba para o Git o arquivo `.env`, nem backups do banco (`*.dump`). O `.gitignore` já os bloqueia.
+- Cada pessoa usa a **própria** senha local do PostgreSQL.
+>>>>>>> 83b7fb5 (Adicionando o projeto BookWorms)
