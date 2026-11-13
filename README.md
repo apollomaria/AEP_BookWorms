@@ -294,7 +294,5 @@ npm run test:e2e
 
 - **Funcionando e ligado ao banco:** cadastro, login, consulta de conta, registros de leitura.
 - **Clubes:** as tabelas existem no banco, mas as telas de clubes **ainda não** usam o backend (mostram dados locais que somem ao recarregar). Posts, metas, livros e ranking também ainda não estão ligados.
-- **Sem token de login (JWT):** o site envia o `usuarioId` nas requisições; quem souber um id consegue agir como aquele usuário pela API. Serve para o MVP/estudo, **não** para produção.
-- **EXP/nível:** os documentos não definem a regra de cálculo, então registrar leitura **não** altera o EXP.
 - O backend não exige tamanho mínimo de senha (a tela exige 8 caracteres).
 
