@@ -58,34 +58,40 @@
 
         A equipe escolheu um banco de dados relacional por levar em conta que os requisitos do projeto estão fortemente conectados entre si, como o vínculo direto entre Usuário, Clube de Leitura e Registros de Leitura. Da mesma forma, o uso de TypeScript, NestJS e React, por serem tecnologias amplamente adotadas atualmente, facilita o acesso a materiais de estudo, fóruns e documentação, ajudando o grupo na busca por soluções durante o desenvolvimento. Por último, como a equipe ainda está em formação na área de desenvolvimento de software, optou-se por trabalhar com ferramentas baseadas na linguagem JavaScript, com a qual os integrantes já possuem maior familiaridade e que apresentam grande demanda no mercado de trabalho.
 
+
 #
 
 ### Diagrama de Classes (UML)
 
-<img width="1048" height="772" alt="WhatsApp Image 2026-09-04 at 09 52 17" src="https://github.com/user-attachments/assets/4fe5777a-daa8-48d6-b39e-4d97dffbcb55" />
+<img width="1600" height="1072" alt="WhatsApp Image 2026-11-13 at 16 17 53" src="https://github.com/user-attachments/assets/22fea5a4-d560-40c9-838b-b6640b8b62c7" /><br>
 
-
-
-* **HERANÇA**: As classes Lider_Clube e Membro herdam de Usuario atributos e métodos, pois são um tipo de Usuario, porém possuem suas próprias ações dentro do sistema.
-* **COMPOSIÇÃO** 1:N: A composição 1:N acontece entre as classes de Forum e Comentario, o que significa que 0 ou muitos Comentarios compõem um Forum, se o Forum deixar de existir, os Comentarios que o compõem também deixaram.
-* **COMPOSIÇÃO** 1:1: A composição 1:1 ocorre entre as classes Livro e Forum, onde o Forum compõe a classe Livro. O que significa que se o Livro existe então existe um único Forum para esse livro, caso ele deixe de existir o Forum também é apagado.
-* **POLIMORFISMO**: O poliformismo está presente na classe de Ranking, onde RankingHora, RankingEXP, RankingPagina, RankingLivro herdam de Ranking atributos e métodos, que são executados de forma diversificada, para cada tipo de Ranking.
+- **HERANÇA:** as classes `Lider_Clube` e `Membro` herdam de `Usuario` atributos e métodos, pois são um tipo de `Usuario`, porém possuem suas próprias ações dentro do sistema.
+- **COMPOSIÇÃO 1:N (Forum e Comentario):** 0 ou muitos `Comentario` compõem um `Forum`. Se o `Forum` deixar de existir, os `Comentario` que o compõem também deixam.
+- **COMPOSIÇÃO 1:N (Usuario e Infracao):** 0 ou muitas `Infracao` compõem um `Usuario`. Se o `Usuario` deixar de existir, suas `Infracao` também deixam.
+- **COMPOSIÇÃO 1:1 (Livro e Forum):** o `Livro` compõe o `Forum`, o que significa que cada `Livro` possui um único `Forum`. Se o `Livro` deixar de existir, o `Forum` também é apagado.
+- **ASSOCIAÇÃO:** `Usuario` se relaciona com `Registro_Leitura`, `Forum` e `Clube_Leitura`, e `Registro_Leitura` se relaciona com `Livro`. Os relacionamentos de muitos para muitos entre `Usuario` e `Clube_Leitura` e entre `Usuario` e `Forum` são resolvidos pelas classes associativas `Inscricao_Leitura` e `Inscricao_Forum`. `Lider_Clube` se associa a `Clube_Leitura` (1:1) e a `Quiz` (1:0..*).
+- **CLASSE ABSTRATA:** `Ranking` é uma classe abstrata, cujos métodos `consultarRanking()` e `calcularPontuacao()` não têm implementação própria e precisam ser implementados pelas subclasses.
+- **POLIMORFISMO:** está presente na classe `Ranking`, onde `RankingHora`, `RankingEXP`, `RankingPagina` e `RankingLivro` herdam de `Ranking` atributos e métodos, que são executados de forma diversificada para cada tipo de ranking. Também ocorre no método `sairClube()`, definido em `Usuario` e implementado de forma diferente por `Lider_Clube` e `Membro`.
 
 #
 ### Diagrama de Banco de Dados (DER)
 
-<img width="931" height="816" alt="banco de dados" src="https://github.com/user-attachments/assets/60d56c00-52c8-4d3b-a5df-e810e51c6184" />
+
+<img width="1600" height="1085" alt="WhatsApp Image 2026-11-13 at 16 18 07" src="https://github.com/user-attachments/assets/27b5908f-d546-426f-ae2e-d1b32521e66e" /><br>
 
 
+- **Tabela Usuario:** dados necessários do usuário;
+- **Tabela Registro de Leitura:** registra os dados que serão informados pelo usuário a cada "sessão" de leitura realizada;
+- **Tabela Clube de Leitura:** registro dos clubes existentes com tabela associativa para os membros inscritos em si;
+- **Tabela Livro:** cadastro de livros que serão utilizados como foreign key para o livro escolhido na sessão de livro escolhido do grupo e do livro lido pelo usuário no registro;
+- **Tabela Inscricao_Leitura (Associativa), chamada `clube_membros` no DER:** resolve o relacionamento de muitos para muitos entre Usuários e Clubes de Leitura, pois armazena `usuario_id` e `clube_id` como chave primária composta, além da data de entrada no clube (`entrou_em`);
+- **Tabela Inscricao_Forum (Associativa):** resolve o relacionamento de muitos para muitos entre Usuários e Fóruns, pois armazena `id_usuario` e `id_forum`, além da data de inscrição (`data_inscricao`);
+- **Tabela Quiz:** baseada na RF10, são os formulários que os usuários poderão responder e serão criados pelos líderes dos clubes, por isso `id_criador` como foreign key de Usuario;
+- **Tabela Ranking:** tabela única "pai" com colunas discriminatórias (`qtd_hora`, `qtd_exp`, `qtd_pag`, `qtd_livro`) para diferenciar as classes filhas distintas da herança, com `id_usuario` como foreign key de Usuario, já que cada registro de ranking pertence a um usuário;
+- **Tabela Forum:** cadastro dos fóruns de discussão, vinculados a um livro (`id_livro` como foreign key de Livro) e com o contador de membros inscritos (`qtd_membro`);
+- **Tabela Comentario:** registra as mensagens publicadas pelos usuários dentro de um fórum, por isso `id_usuario` e `id_forum` como foreign keys, além do conteúdo do comentário e da quantidade de estrelas recebidas (`qtd_estrela`);
+- **Tabela Infracoes:** registra as infrações cometidas pelos usuários, armazenando o motivo, se a infração está ativa e a data de criação (`criada_em`), com `usuario_id` como foreign key de Usuario.
 
-* **Tabela Usuario**: dados necessários do usuário;
-* **Tabela Registro de Leitura**: registra os dados que serão informados pelo usuário a cada "sessão" de leitura realizada;
-* **Tabela Clube de Leitura**: registro dos clubes existentes com tabela associativa para os membros inscritos em si;
-* **Tabela Livro**: cadastro de livros que serão utilizados como foreign key para o livro escolhido na sessão de livro escolhido do grupo e do livro lido pelo usuário no registro;
-* **Tabela Inscricao_Leitura (Associativa)**: resolve o relacionamento de muitos para muitos entre Usuários e Clubes de Leituras, pois armazena id_usuario e id_clube_leitura;
-* **Tabela Inscricao_Forum (Associativa)**: resolve o relacionamento de muitos para muitos entre Usuários e Fóruns, pois armazena id_usuario e id_forum;
-* **Tabela Quiz**: baseada na RF10, são os formulários que os usuários poderão responder e serão criadas pelos líderes dos clubes, por isso id_criador como foreign key de Usuario;
-* **Tabela Ranking**: tabela única “pai” com colunas discriminatórias (qtd_hora, qtd_exp, qtd_pag, qtd_livro) para diferenciar as classes filhas distintas da herança.
 
 #
 ### Referências Bibliográficas
